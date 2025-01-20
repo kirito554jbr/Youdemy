@@ -4,14 +4,14 @@
 
 class UserService
 {
-    private Utilisateur $user;
-    private UserRepository $userRepository;
-    private RoleService $roleService;
+
+    public Repository $Repository;
+
 
     public function __construct()
     {
-        $this->userRepository = new UserRepository();
-        $this->roleService = new RoleService();
+
+        $this->Repository = new Repository();
     }
 
     public function create(Utilisateur $user)
@@ -40,91 +40,170 @@ class UserService
             throw new Exception("Photo is empty");
         }
 
-        // if(empty($user->getRole()->getRoleName())) {
-        //     throw new Exception("Role name is empty");
-        // }
+        // var_dump($user);
+        // die();
 
 
-        // $user->setRole($this->roleService
-        //     ->getRoleByName($user
-        //         ->getRole()
-        //         ->getRoleName()));
 
-        // if ($this->checkEmailifExist($user->getEmail())) {
-        //     throw new Exception("Email is already exist !");
-        // }
-        
-        $user->setRoleId($user->getRole()->getId());
-        
-       
+        // $user->setRoleId($user->getRole()->getId());
 
-        return $this->userRepository->create($user);
+        $tablename = 'Utilisateur';
+
+        $params = [
+            'first_name' => $user->getFirstname(),
+            'last_name' => $user->getLastname(),
+            'email' => $user->getEmail(),
+            'phone' => $user->getPassword(),
+            'password' => $user->getPhone(),
+            'photo' => $user->getPhoto(),
+            'role_id' => $user->getRole()->getId(),
+        ];
+
+        // var_dump($params);
+        // die();
+
+
+
+
+        $this->Repository->create($tablename, $params);
     }
 
 
-    public function delete(int $id){
+    public function delete(Utilisateur $user)
+    {
 
-        return $this->userRepository->delete($id);
+        $tablename = "Utilisateur";
+        $userName = $user->getFirstname();
+        // die($userName);
+        $this->Repository->getUser($tablename, $userName);
+        // var_dump($this->Repository->getUser($tablename, $userName));
+        // die();
 
+        $id = $this->Repository->getUser($tablename, $userName)->getId();
+        $this->Repository->delete($tablename, $id);
     }
 
-    public function update(Utilisateur $user){
+    public function update(Utilisateur $user, Utilisateur $second)
+    {
+        $tablename = "Utilisateur";
+
+        // die($second);
+
+        $params = [
+            'first_name' => $second->getFirstname(),
+            'last_name' => $second->getLastname(),
+            'email' => $second->getEmail(),
+            'phone' => $second->getPassword(),
+            'password' => $second->getPhone(),
+            'photo' => $second->getPhoto(),
+            // 'role_id' => $second->getRole()->getId(),
+        ];
+
+        // var_dump($params);
+        // die($params);
+
+        $userName = $user->getFirstname();
+        // die($userName);
+
+        $this->Repository->getUser($tablename, $userName);
+        // var_dump($this->Repository->getUser($tablename, $userName));
+        // die();
+        $id = $this->Repository->getUser($tablename, $userName)->getId();
+        // var_dump($id);
+        // die($id);
+        // die($id);
+
         // die($this->userRepository->update($user));
 
-        return $this->userRepository->update($user);
-        }
+        $this->Repository->update($tablename, $id, $params);
+    }
 
-    public function findAll(){
+    public function getAll()
+    {
 
+        // $params = ["first_name", "last_name", "email", "password", "phone", "photo"];
+        $tablename = "Utilisateur";
+
+
+        $result = $this->Repository->getAll($tablename);
         // var_dump($this->userRepository->findAll());
-        
+
         // $tostring = implode(",", $this->userRepository->findAll());
         // var_dump($tostring);
 
-        return $this->userRepository->findAll() ;
+        return $result;
     }
 
 
-    public function findById(Utilisateur $user){
-        return $this->userRepository->findById($user);
+    public function getById(Utilisateur $user)
+    {
+
+        $tablename = "Utilisateur";
+        $userName = $user->getFirstname();
+        $this->Repository->getUser($tablename, $userName);
+
+        $id = $this->Repository->getUser($tablename, $userName)->getId();
+
+
+        $result = $this->Repository->getById($tablename, $id);
+        return $result;
     }
 
-        // public function checkEmailifExist(string $email)
-        // {
-        //     $user = $this->userRepository->findByEmail($email);
+    // public function checkEmailifExist(string $email)
+    // {
+    //     $user = $this->userRepository->findByEmail($email);
 
-        //     if ($user != null) {
-        //         return true;
-        //     }
+    //     if ($user != null) {
+    //         return true;
+    //     }
 
-        //     return false;
-        // }
-
-
+    //     return false;
+    // }
 
 
 
 
-        // public function findByEmailAndPassword(Utilisateur $user): Utilisateur
-        // {
-        //     // Message::in("la méthode findByEmailAndPassword dans la classe UserService");
-        //     // var_dump($user);
-        //     $user = $this->userRepository->findByEmailAndPassword($user);
+    public function findByEmailAndPassword(LoginForm $user)
+    {
+        // var_dump($user);
+        // die();
+        $email = $user->getEmail();
+        $password = $user->getPassword();
 
-        //     // Message::in("L'utilisateur avec ces attr : ");
-        //     // var_dump($user);
-        //     if (!$user) {
-        //         // Message::in("l'utilisateur est null");
-        //         return new Utilisateur();
-        //     }
+        // die($password);
 
-        //     // Message::in("L'ajout du role a l'instance de la classe user");
+        $result = $this->Repository->findByEmailAndPassword($email, $password);
 
-        //     //TODO implémentation de cette fonction .......
-        //     // --------------------------------------------
-        //     $user->setRole(
-        //         $this->roleService->getRoleById($user->getRole_ID())
-        //     );
+        //    var_dump($result);
+        //    die();
+        // $this->user->setRole($this->roleService->getRoleById($this->user->getRoleId()));
+        // var_dump($this->user);
+        // die();
+        return $result;
+    }
+
+
+
+    // public function findByEmailAndPassword(Utilisateur $user): Utilisateur
+    // {
+    //     // Message::in("la méthode findByEmailAndPassword dans la classe UserService");
+    //     // var_dump($user);
+    //     $user = $this->userRepository->findByEmailAndPassword($user);
+
+    //     // Message::in("L'utilisateur avec ces attr : ");
+    //     // var_dump($user);
+    //     if (!$user) {
+    //         // Message::in("l'utilisateur est null");
+    //         return new Utilisateur();
+    //     }
+
+    //     // Message::in("L'ajout du role a l'instance de la classe user");
+
+    //     //TODO implémentation de cette fonction .......
+    //     // --------------------------------------------
+    //     $user->setRole(
+    //         $this->roleService->getRoleById($user->getRole_ID())
+    //     );
 
     //         // Message::in("L'utilisateur avec leur rôle ");
     //         // var_dump($user);

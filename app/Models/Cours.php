@@ -26,7 +26,7 @@ class Cours
         if ($name == "BuildCour") {
 
             if (count($arguments) == 1) {
-                $this->id = $arguments[1];
+                $this->titre = $arguments[0];
             }
 
             if (count($arguments) == 2) {
@@ -47,18 +47,27 @@ class Cours
                 $this->created_at = $arguments[4];
             }
 
+            if (count($arguments) == 7){
+                $this->titre = $arguments[0];
+                $this->description = $arguments[1];
+                $this->contenu = $arguments[2];
+                $this->tag = $arguments[3];
+                $this->categorie = $arguments[4];
+                $this->created_at = $arguments[5];
+                $this->enseignant = $arguments[6];
+            }
 
 
-            if (count($arguments) == 7) {
-                $this->id = $arguments[0];
-                $this->titre = $arguments[1];
-                $this->description = $arguments[2];
-                $this->contenu = $arguments[3];
-                $this->tag = $arguments[4];
-                $this->categorie = $arguments[5];
-                $this->created_at = $arguments[6];
-                $this->enseignant = $arguments[7];
-                $this->etudiant = $arguments[8];
+
+            if (count($arguments) == 8) {
+                $this->titre = $arguments[0];
+                $this->description = $arguments[1];
+                $this->contenu = $arguments[2];
+                $this->tag = $arguments[3];
+                $this->categorie = $arguments[4];
+                $this->created_at = $arguments[5];
+                $this->enseignant = $arguments[6];
+                $this->etudiant = $arguments[7];
             }
         }
     }

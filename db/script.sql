@@ -1,6 +1,7 @@
--- Active: 1736763442989@@127.0.0.1@3306@user_managment
+-- Active: 1736763442989@@127.0.0.1@3306@youdemy
 CREATE DATABASE Youdemy;
 
+SHOW DATABASES;
 USE Youdemy;
 
 DROP DATABASE Youdemy;
@@ -22,7 +23,6 @@ DROP TABLE tags;
 CREATE TABLE Roles (
     id INT PRIMARY KEY AUTO_INCREMENT,
     role_name VARCHAR(25),
-    
     role_description TEXT
 )ENGINE=INNODB;
 

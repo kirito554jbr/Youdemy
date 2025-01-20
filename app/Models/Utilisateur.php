@@ -5,8 +5,8 @@
 class Utilisateur
 {
     private int $id = 0;
-    private string $firstname;
-    private string $lastname;
+    private string $first_name;
+    private string $last_name;
     private string $email;
     private string $password;
     private string $phone;
@@ -27,10 +27,14 @@ class Utilisateur
     {
         if ($name == "BuildUser"){
 
+        if(count($arguments) == 1){
+            $this->first_name = $arguments[0];
+        }
+
        
         if (count($arguments) == 3){
-            $this->firstname = $arguments[0];
-            $this->lastname = $arguments[1];
+            $this->first_name = $arguments[0];
+            $this->last_name = $arguments[1];
             $this->photo = $arguments[2];
         }
 
@@ -39,20 +43,20 @@ class Utilisateur
             $this->password = $arguments[1];
         }
         if (count($arguments) == 7){
-            $this->firstname = $arguments[0];
-            $this->lastname = $arguments[1];
-            $this->email = $arguments[2];
-            $this->password = $arguments[3];
-            $this->phone = $arguments[4];
-            $this->photo = $arguments[5];
-            $this->cour = $arguments[6];
+            $this->id = $arguments[0];
+            $this->first_name = $arguments[1];
+            $this->last_name = $arguments[2];
+            $this->email = $arguments[3];
+            $this->password = $arguments[4];
+            $this->phone = $arguments[5];
+            $this->photo = $arguments[6];
 
            
         }
 
         if (count($arguments) == 8){
-            $this->firstname = $arguments[0];
-            $this->lastname = $arguments[1];
+            $this->first_name = $arguments[0];
+            $this->last_name = $arguments[1];
             $this->email = $arguments[2];
             $this->password = $arguments[3];
             $this->phone = $arguments[4];
@@ -63,15 +67,15 @@ class Utilisateur
            
         }
         if (count($arguments) == 9){
-            $this->id = $arguments[0];
-            $this->firstname = $arguments[1];
-            $this->lastname = $arguments[2];
-            $this->email = $arguments[3];
-            $this->password = $arguments[4];
-            $this->phone = $arguments[5];
-            $this->photo = $arguments[6];
-            $this->role = $arguments[7];
-            $this->cour = $arguments[8];
+            $this->first_name = $arguments[0];
+            $this->last_name = $arguments[1];
+            $this->email = $arguments[2];
+            $this->password = $arguments[3];
+            $this->phone = $arguments[4];
+            $this->photo = $arguments[5];
+            $this->role = $arguments[6];
+            $this->cour = $arguments[7];
+            $this->role_id = $arguments[8];
             
             
            
@@ -90,14 +94,14 @@ class Utilisateur
         $this->id = $id;
     }
 
-    public function setFirstname(string $firstname): void
+    public function setFirstname(string $first_name): void
     {
-        $this->firstname = $firstname;
+        $this->first_name = $first_name;
     }
 
-    public function setLastname(string $lastname): void
+    public function setLastname(string $last_name): void
     {
-        $this->lastname = $lastname;
+        $this->last_name = $last_name;
     }
 
     public function setEmail(string $email): void
@@ -124,10 +128,7 @@ class Utilisateur
         $this->role = $role;
     }
 
-    public function setReservations(array $cour): void
-    {
-        $this->cour = $cour;
-    }
+    
 
     public function setRoleId ($role_id){
         $this->role_id = $role_id;
@@ -140,12 +141,12 @@ class Utilisateur
 
     public function getFirstname(): string
     {
-        return $this->firstname;
+        return $this->first_name;
     }
 
     public function getLastname(): string
     {
-        return $this->lastname;
+        return $this->last_name;
     }
 
     public function getEmail(): string
@@ -168,24 +169,26 @@ class Utilisateur
         return $this->role;
     }
 
-    public function getReservations(): array
-    {
-        return $this->cour;
-    }
+    
 
     public function getPhoto(): string
     {
         return $this->photo;
     }
 
+    
+    public function getRoleId (){
+        $this->role_id;
+    }
+
     // public function setRoleId($id)
 
-    public function toStringWithFirstnameAndLastname()
+    public function toStringWithfirst_nameAndlast_name()
     {
         $id = $this->id ?? 0;
-        $firstname = $this->firstname ?? "";
-        $lastname = $this->lastname ?? "";
-        return "(Utilisateur) => id : " . $id . " , firstname : " . $firstname . " , lastname : " . $lastname;
+        $first_name = $this->first_name ?? "";
+        $last_name = $this->last_name ?? "";
+        return "(Utilisateur) => id : " . $id . " , first_name : " . $first_name . " , last_name : " . $last_name;
     }
 
 
@@ -198,7 +201,7 @@ class Utilisateur
         $role = $this->role ?? 0;
         $role_id = $this->role_id ?? 0;
 
-        return $this->toStringWithFirstnameAndLastname() .
+        return $this->toStringWithfirst_nameAndlast_name() .
             " , phone : " . $phone . " , email : " . $email  . " , password : " . $password . " photo : " . $photo . " , Role : " . $role . " , cour : [" . implode(",", $this->cour) . "] , Role_ID : " . $role_id . "";
     }
 }

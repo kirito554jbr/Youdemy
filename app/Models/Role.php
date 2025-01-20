@@ -9,7 +9,7 @@ class Role {
     public function __construct () {}
 
     
-    public   function __call($name, $arguments)
+    public function __call($name, $arguments)
     {
         if ($name == "BuildRole"){
             if(count($arguments) == 1){
@@ -19,6 +19,12 @@ class Role {
                 
                 $this->role_name = $arguments[0];
                 $this->role_description = $arguments[1];
+            }
+
+            if(count($arguments) == 3){
+                $this->id = $arguments[0];
+                $this->role_name = $arguments[1];
+                $this->role_description = $arguments[2];
             }
         }
 

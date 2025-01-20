@@ -20,7 +20,7 @@ class Database {
                     self::$username,
                     self::$password
                 );
-                echo "seccuss";
+                // echo "seccuss";
                 self::$connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             } catch (PDOException $e) {
                 die("Connection failed: " . $e->getMessage());

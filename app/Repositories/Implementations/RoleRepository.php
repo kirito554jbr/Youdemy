@@ -1,13 +1,15 @@
 <?php
 
 
-class RoleRepository {
+class RoleRepository
+{
     private RoleDao $roleDao;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->roleDao = new RoleDao();
     }
-    
+
     // public function findByName(string $name) {
 
     //     $query = "SELECT id, role_name, role_description, logo FROM roles WHERE role_name = '" . $name . "';";
@@ -17,12 +19,14 @@ class RoleRepository {
     //     return $stmt->fetchObject(Role::class);
     // }
 
-    public function create(Role $role) : Role {
+    public function create(Role $role): Role
+    {
         return $this->roleDao->create($role);
     }
 
 
-    public function delete(int $id){
+    public function delete(int $id)
+    {
         return $this->roleDao->delete($id);
     }
     // public function getRoleById(int $id) {

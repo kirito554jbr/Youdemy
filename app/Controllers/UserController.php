@@ -5,6 +5,7 @@ class UserController
 {
 
     private Utilisateur $user;
+    private Utilisateur $seconduser;
     // private RoleService $roleService;
     private RoleController $roleController;
     private UserService $userService;
@@ -12,27 +13,17 @@ class UserController
     public function __construct()
     {
         $this->user = new Utilisateur();
+        $this->seconduser = new Utilisateur();
         // $this->roleService = new RoleService();
         $this->userService = new UserService();
         $this->roleController = new RoleController();
     }
 
-    public function createUtilisateur()
+    public function createUtilisateur($firstname, $lastname, $email, $password, $phone, $photo, array $cour, $rolename)
     {
-        $firstname = "aymen";
-        $lastname = "jebrane";
-        $phone = "0669365193";
-        $photo = "Logo.png";
-        $email = "aymenjaymen@example.com";
-        $password = "1212";
-        $rolename = "etudiant";
-        // echo "test";
-        // die;
-        // $this->roleController->
-        //add an if
         
-        $role =  $this->roleController->createRole($rolename);
-
+       $role = $this->roleController->getById($rolename);
+        
         $this->user->BuildUser(
             $firstname,
             $lastname,
@@ -41,7 +32,7 @@ class UserController
             $phone,
             $photo,
             $role,
-            []
+            $cour
         );
 
        
@@ -55,9 +46,11 @@ class UserController
         }
     }
 
-    public function delete(int $id){
+    public function delete($username){
+        $this->user->BuildUser($username);
+
         try {
-            $user = $this->userService->delete($id);
+            $user = $this->userService->delete($this->user);
             return $user;
             
         } catch (Exception $e) {
@@ -65,9 +58,22 @@ class UserController
         }
     }
 
-    public function update(Utilisateur $user){
+    public function update($username, $firstname, $lastname, $email, $password, $phone, $photo, array $cour){
+        $this->user->BuildUser($username);
+
+        // $role = $this->roleController->getById($rolename);
+
+        $this->seconduser->BuildUser(
+            $firstname,
+            $lastname,
+            $email,
+            $password,
+            $phone,
+            $photo,
+            $cour);
+
         try {
-            $user = $this->userService->update($user);
+            $user = $this->userService->update($this->user, $this->seconduser);
             return $user;
             
         } catch (Exception $e) {
@@ -75,11 +81,15 @@ class UserController
         }
     }
 
-    public function findAll(){
+    public function getAll(){
         try {
-            $users = $this->userService->findAll();
+            $users = $this->userService->getAll();
+
+            // var_dump($users);
+            // die($users);
             
             //  var_dump($users);
+
             return $users;
 
         }catch (Exception $e) {
@@ -87,10 +97,14 @@ class UserController
         }
     }
 
-    public function findById(Utilisateur $user){
+    public function getByName($username){
+        $this->user->BuildUser($username);
+
         try {
-            $users = $this->userService->findById($user);
-            return $users;
+            $result = $this->userService->getById($this->user);
+            return $result;
+
+            
 
         }catch (Exception $e) {
             die("Erreur de base de données : " . $e->getMessage());
@@ -99,26 +113,6 @@ class UserController
     
 
 
-    // public function toStringWithFirstnameAndLastname()
-    // {
-    //     $id = $this->id ?? 0;
-    //     $firstname = $this->firstname ?? "";
-    //     $lastname = $this->lastname ?? "";
-    //     return "(Utilisateur) => id : " . $id . " , firstname : " . $firstname . " , lastname : " . $lastname;
-    // }
-
-
-    // public function __toString()
-    // {
-    //     $phone = $this->phone ?? 0;
-    //     $email = $this->email ?? 0;
-    //     $password = $this->password ?? 0;
-    //     $photo = $this->photo ?? 0;
-    //     $role = $this->role ?? 0;
-    //     $role_id = $this->role_id ?? 0;
-
-    //     return $this->toStringWithFirstnameAndLastname() .
-    //         " , phone : " . $phone . " , email : " . $email  . " , password : " . $password . " photo : " . $photo . " , Role : " . $role . " , cour : [" . implode(",", $this->cour) . "] , Role_ID : " . $role_id . "";
-    // }
+  
 
 }

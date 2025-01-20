@@ -5,7 +5,7 @@ abstract class Etiquette
 {
     protected int $id = 0;
     protected string $name;
-    protected string $description;
+    protected string $description = '';
 
     public function __construct(){}
 
