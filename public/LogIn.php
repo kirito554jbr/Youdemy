@@ -3,9 +3,9 @@
 session_start();
 require_once './../utils/utils.php';
 // Redirect to profile if logged in
-if (Utils::isLoggedIn()) {
-  Utils::redirect('index.php');
-}
+// if (Utils::isLoggedIn()) {
+//   Utils::redirect('/users');
+// }
 ?>
 
 
@@ -31,7 +31,7 @@ if (Utils::isLoggedIn()) {
             echo Utils::displayFlash('register_success', 'success');
             echo Utils::displayFlash('login_error', 'danger');
             ?>
-            <form  method="POST" action="/indesx">
+            <form  method="POST" action="/login">
               <input type="hidden" name="login" value="1">
               <div class="mb-3">
                 <label for="email" class="form-label">Email</label>

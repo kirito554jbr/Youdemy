@@ -19,14 +19,13 @@ class AuthController
             $Fname,
             $LName,
             $Email,
+            $phone,
             $password,
             $passwordConfirmation,
-            $phone,
             $photo
         );
         // var_dump($this->registerForm);
         // die();
-
 
         try {
             $user = $this->authService->register($this->registerForm);
@@ -43,9 +42,9 @@ class AuthController
         require_once './../utils/utils.php';
         // Redirect to profile if logged in
         if (Utils::isLoggedIn()) {
-            Utils::redirect('index.php');
+            Utils::redirect('/users');
         }
-        
+
         $this->logInForm->instance($Email, $password);
 
         // var_dump($this->logInForm);

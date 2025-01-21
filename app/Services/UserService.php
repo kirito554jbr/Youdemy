@@ -6,12 +6,14 @@ class UserService
 {
 
     public Repository $Repository;
+    private RoleController $roleController;
 
 
     public function __construct()
     {
 
         $this->Repository = new Repository();
+        $this->roleController = new RoleController();
     }
 
     public function create(Utilisateur $user)
@@ -53,8 +55,8 @@ class UserService
             'first_name' => $user->getFirstname(),
             'last_name' => $user->getLastname(),
             'email' => $user->getEmail(),
-            'phone' => $user->getPassword(),
-            'password' => $user->getPhone(),
+            'password' => $user->getPassword(),
+            'phone' => $user->getPhone(),
             'photo' => $user->getPhoto(),
             'role_id' => $user->getRole()->getId(),
         ];
@@ -126,10 +128,28 @@ class UserService
 
 
         $result = $this->Repository->getAll($tablename);
+        // var_dump($result);
+        // die();
+
+        // $result->setRole();
+
+        // $values = [];
+        // foreach($result as $key => $value){
+
+        //     array_push($values, $value);
+        //     $role = $this->roleController->getById($result[1]);
+
+
+            
+        // }
+
+        // $result
         // var_dump($this->userRepository->findAll());
 
         // $tostring = implode(",", $this->userRepository->findAll());
         // var_dump($tostring);
+        // var_dump($result);
+        // die();
 
         return $result;
     }

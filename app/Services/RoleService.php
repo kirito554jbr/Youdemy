@@ -77,7 +77,19 @@ class RoleService
 
     }
 
-    public function getById(Role $role){
+    public function getById(int $id){
+        $tablename = 'roles';
+
+        // var_dump($id);
+        $result = $this->Repository->getById($tablename, $id);
+
+        // var_dump($result);
+
+        return $result;
+
+    }
+
+    public function getName(Role $role){
         $tablename = 'roles';
         $RoleName = $role->getRoleName();
         $this->Repository->getbynameById($tablename, $RoleName);

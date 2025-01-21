@@ -1,5 +1,5 @@
 <?php
-require_once './../app/http/config.php';
+
 class Utils {
   // method to sanitize data
   public static function sanitize($data) {
@@ -10,8 +10,8 @@ class Utils {
   }
   // method to redirect to a page
   public static function redirect($page) {
-    $home_url = BASE_URL;
-    header('location: ' . $home_url . '/' . $page);
+    // $home_url = BASE_URL;
+    header('location: /' . $page);
   }
   // method to set a flash message
   public static function setFlash($name, $message) {

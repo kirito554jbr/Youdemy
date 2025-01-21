@@ -25,14 +25,14 @@ class CourController
 
 
 
-    public function createCour($titre, $description, $contenu, array $tag, $catigorie, $created_at, $enseignant, array $etudinat)
+    public function createCour($titre, $description,$contenu, $catigorie, $created_at = '', array $tag = [], $enseignant = '', array $etudinat = [])
     {
 
         $catigorie = $this->categorieController->getById($catigorie);
 
         $enseignant = $this->enseignant->getByName($enseignant);
-        //    var_dump($enseignant);
-        //     die($enseignant);
+           var_dump($enseignant);
+            die($enseignant);
 
 
         $id = $enseignant[0]->id;
@@ -138,7 +138,7 @@ class CourController
         $this->cour->BuildCour($courName);
 
         try {
-            $cour = $this->courService->getById();
+            $cour = $this->courService->getById($this->cour);
 
             return $cour;
         } catch (Exception $e) {

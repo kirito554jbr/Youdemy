@@ -17,9 +17,9 @@ class RegisterForm
                 $this->Fname = $arguments[0];
                 $this->lName = $arguments[1];
                 $this->Email = $arguments[2];
-                $this->password = $arguments[3];
+                $this->phone = $arguments[3];
                 $this->passwordConfirmation = $arguments[4];
-                $this->phone = $arguments[5];
+                $this->password = $arguments[5];
                 $this->photo = $arguments[6];
             }
         }

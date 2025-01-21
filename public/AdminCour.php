@@ -2,16 +2,14 @@
 
 // include './../utils/Test.php';
 
-$uesrContoller = new UserController();
+$CourContoller = new CourController();
 // var_dump($uesrContoller->getAll());
 // die();
 
-$users = $uesrContoller->getAll();
+$CourContoller = $CourContoller->getAll();
 
 
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -121,7 +119,7 @@ $users = $uesrContoller->getAll();
                                     </a>
                                 </div>
                                 <div class="mx-n1">
-                                    <a href="./LogInPage" class="btn d-inline-flex btn-sm btn-warning mx-1">
+                                    <a href="./LogIn.php" class="btn d-inline-flex btn-sm btn-warning mx-1">
                                         <span class=" pe-2">
                                             <i class="bi bi-plus"></i>
                                         </span>
@@ -133,7 +131,7 @@ $users = $uesrContoller->getAll();
                         <!-- Nav -->
                         <ul class="nav nav-tabs mt-4 overflow-x border-0">
                             <li class="nav-item ">
-                                <a href="#" class="nav-link active">All Users</a>
+                                <a href="#" class="nav-link active">All Cours</a>
                             </li>
 
                         </ul>
@@ -149,7 +147,7 @@ $users = $uesrContoller->getAll();
 
                     <div class="card mb-7">
                         <div class="card-header d-flex justify-content-between">
-                            <h5 class="mb-0">Users</h5>
+                            <h5 class="mb-0">Cours</h5>
                             <a href="#" class="btn d-inline-flex btn-sm btn-primary mx-1" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 <span class=" pe-2">
                                     <i class="bi bi-plus"></i>
@@ -161,41 +159,32 @@ $users = $uesrContoller->getAll();
                             <table class="table table-hover table-nowrap">
                                 <thead class="table-light">
                                     <tr>
-                                        <th scope="col">Photo</th>
-                                        <th scope="col">nom</th>
-                                        <th scope="col">prénom</th>
-                                        <th scope="col">email</th>
-                                        <th scope="col">numéro de téléphone</th>
+                                        <th scope="col">titre</th>
+                                        <th scope="col">description</th>
+                                        <th scope="col">created_at </th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
 
-                                    <?php foreach ($users as $user): ?>
+                                    <?php foreach ($CourContoller as $cours): ?>
                                         <tr>
 
                                             <td>
-                                                <img src="<?= $user['photo'] ?>" alt="" class="w-10">
+                                                <?= $cours['titre'] ?>
 
                                             </td>
 
                                             <td>
-                                                <?= $user['first_name'] ?>
+                                                <?= $cours['description'] ?>
 
                                             </td>
 
 
-                                            <td>
-                                                <?= $user['last_name'] ?>
-                                            </td>
+                                            
 
                                             <td>
-                                                <?= $user['email'] ?>
-                                            </td>
-
-                                            <td>
-                                                <?= $user['phone'] ?>
-                                                </a>
+                                                <?= $cours['created_at'] ?>
                                             </td>
 
                                             <td class="text-end">
@@ -208,9 +197,9 @@ $users = $uesrContoller->getAll();
                                                 </a>
                                                 
 
-                                                <!-- <a href="#" class="btn btn-sm btn-neutral">View</a> -->
-                                                <form action="/deleteUser" method="POST" class="inline">
-                                                    <input type="hidden" name="first_name" value="<?= $user["first_name"] ?>">
+                                                <a href="#" class="btn btn-sm btn-neutral">View</a>
+                                                <form action="/deleteCour" method="POST" class="inline">
+                                                    <input type="hidden" name="first_name" value="<?= $cours["titre"] ?>">
                                                     <button type="submit" class="btn btn-sm btn-square btn-neutral text-danger-hover">
                                                         <i class="bi bi-trash"></i>
                                                     </button>
@@ -237,43 +226,31 @@ $users = $uesrContoller->getAll();
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="/createUser" method="POST">
+                <form action="/createCour" method="POST">
                     <div class="modal-body">
                         <input type="hidden" name="action" value="create">
 
                         <div class="mb-3">
-                            <label class="form-label">First Name</label>
-                            <input type="text" class="form-control" name="first_name" required>
+                            <label class="form-label">Title</label>
+                            <input type="text" class="form-control" name="titre" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Last Name</label>
-                            <input type="text" class="form-control" name="last_name" required>
+                            <label class="form-label">Description</label>
+                            <input type="text" class="form-control" name="description" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Email</label>
-                            <input type="text" class="form-control" name="email" required>
+                            <label class="form-label">Contenu</label>
+                            <input type="text" class="form-control" name="contenu" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Password</label>
-                            <input type="text" class="form-control" name="password" required>
+                            <label class="form-label">Categorie</label>
+                            <input type="text" class="form-control" name="categorie" required>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Phone</label>
-                            <input type="text" class="form-control" name="phone" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Photo</label>
-                            <input type="text" class="form-control" name="photo" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Cour</label>
-                            <input type="text" class="form-control" name="cour" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Role</label>
-                            <input type="text" class="form-control" name="role" required>
-                        </div>
+                            <label class="form-label">Created at</label>
+                            <input type="text" class="form-control" name="created_at" required>
+                        
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

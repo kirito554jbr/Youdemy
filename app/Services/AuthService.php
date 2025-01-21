@@ -21,8 +21,9 @@ class AuthService
         // die();
         $this->validation($registerForm);
 
-        $role = $this->roleController->getById("Utilisateur");
-
+        $role = $this->roleController->getName("Utilisateur");
+        // var_dump($role);
+        // die();
 
         $this->user->BuildUser(
             $registerForm->Fname,

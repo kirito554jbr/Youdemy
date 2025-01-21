@@ -26,6 +26,8 @@ include './../app/DAOs/UserDao.php';
 include './../app/DAOs/RoleDao.php';
 include './../app/DAOs/DAOs.php';
 
+// include './../public/index.php';
+
 include './../app/Controllers/AuthController.php';
 include './../app/http/LoginInForm.php';
 include './../app/http/RgisterForm.php';

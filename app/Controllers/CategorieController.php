@@ -71,6 +71,9 @@ class CategorieController
         try{
             $result = $this->categorieService->getById($this->categorie);
 
+            if($result == null ){
+                return null;
+            }
             $id = $result[0]->getId();
             $name = $result[0]->getName();
             $description = $result[0]->getDescription();

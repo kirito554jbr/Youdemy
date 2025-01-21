@@ -77,11 +77,15 @@ class RoleController
         }
     }
 
-    public function getById($rolename){
+    public function getName($rolename){
+
+        // die($rolename);
         $this->role->BuildRole($rolename);
+        // var_dump($this->role->BuildRole($rolename));
+        // die();
 
         try {
-            $result = $this->roleService->getById($this->role);
+            $result = $this->roleService->getName($this->role);
             // var_dump($result);
             // die($result);
             
@@ -99,6 +103,19 @@ class RoleController
             die("Erreur de base de données : " . $e->getMessage());
         }
 
+    }
+
+    public function getById(int $id){
+
+        // var_dump($id);
+        try{
+            $result = $this->roleService->getById($id);
+
+            return $result;
+
+        } catch (Exception $e) {
+            die("Erreur de base de données : " . $e->getMessage());
+        }
     }
 
 }
